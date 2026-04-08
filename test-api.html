@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Yield Tracker - API Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        .endpoint-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .method {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .method.get {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .method.post {
+            background: #2196f3;
+            color: white;
+        }
+        
+        .method.put {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .method.delete {
+            background: #f44336;
+            color: white;
+        }
+        
+        .endpoint-url {
+            flex: 1;
+            font-family: 'Courier New', monospace;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .test-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .test-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .response {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .response.show {
+            display: block;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .status.success {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .status.error {
+            background: #f44336;
+            color: white;
+        }
+        
+        .server-info {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .server-url {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌾 Crop Yield Tracker - API Tester</h1>
+        
+        <div class="server-info">
+            <h2>Backend Server</h2>
+            <div class="server-url">http://localhost:5000</div>
+            <p style="margin-top: 15px;">Click the "Test" button on any endpoint to see the response</p>
+        </div>
+        
+        <!-- Endpoint 1 -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/crop-yields</span>
+                <button class="test-btn" onclick="testEndpoint('/api/crop-yields', 1)">Test</button>
+            </div>
+            <div class="description">
+                Get all crop yields with advanced filtering. Supports pagination, sorting, search, and multiple filters.
+                <br><strong>Filters:</strong> cropType, farmerName, location, minWeight, maxWeight, startDate, endDate, search
+            </div>
+            <div class="response" id="response-1"></div>
+        </div>
+        
+        <!-- Endpoint 2 -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/crop-yields/stats</span>
+                <button class="test-btn" onclick="testEndpoint('/api/crop-yields/stats', 2)">Test</button>
+            </div>
+            <div class="description">
+                Get comprehensive yield statistics including crop-wise breakdown and overall metrics.
+                <br><strong>Filters:</strong> startDate, endDate, cropType, location
+            </div>
+            <div class="response" id="response-2"></div>
+        </div>
+        
+        <!-- Endpoint 3 -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/farmers/stats</span>
+                <button class="test-btn" onclick="testEndpoint('/api/farmers/stats', 3)">Test</button>
+            </div>
+            <div class="description">
+                Get farmer performance statistics with total yields, averages, and crop diversity.
+            </div>
+            <div class="response" id="response-3"></div>
+        </div>
+        
+        <!-- Endpoint 4 -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/crop-yields/trends?year=2024</span>
+                <button class="test-btn" onclick="testEndpoint('/api/crop-yields/trends?year=2024', 4)">Test</button>
+            </div>
+            <div class="description">
+                Get monthly yield trends for a specific year with crop-wise breakdown.
+            </div>
+            <div class="response" id="response-4"></div>
+        </div>
+        
+        <!-- Endpoint 5 -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/locations/stats</span>
+                <button class="test-btn" onclick="testEndpoint('/api/locations/stats', 5)">Test</button>
+            </div>
+            <div class="description">
+                Get location-based statistics showing performance by farm location.
+            </div>
+            <div class="response" id="response-5"></div>
+        </div>
+        
+        <!-- Endpoint 6 -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/crop-yields/compare?crops=Rice,Wheat,Corn</span>
+                <button class="test-btn" onclick="testEndpoint('/api/crop-yields/compare?crops=Rice,Wheat,Corn', 6)">Test</button>
+            </div>
+            <div class="description">
+                Compare multiple crops side-by-side with detailed metrics.
+            </div>
+            <div class="response" id="response-6"></div>
+        </div>
+        
+        <!-- Endpoint 7 -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="endpoint-url">/api/top-performers?type=farmers&limit=5</span>
+                <button class="test-btn" onclick="testEndpoint('/api/top-performers?type=farmers&limit=5', 7)">Test</button>
+            </div>
+            <div class="description">
+                Get top performers by farmers, locations, or crops. Supports time period filtering.
+                <br><strong>Parameters:</strong> type (farmers/locations/crops), limit, period (week/month/year/all)
+            </div>
+            <div class="response" id="response-7"></div>
+        </div>
+    </div>
+    
+    <script>
+        const BASE_URL = 'http://localhost:5000';
+        
+        async function testEndpoint(endpoint, id) {
+            const responseDiv = document.getElementById(`response-${id}`);
+            responseDiv.innerHTML = '<div style="text-align: center; padding: 20px;">Loading...</div>';
+            responseDiv.classList.add('show');
+            
+            try {
+                const response = await fetch(BASE_URL + endpoint);
+                const data = await response.json();
+                
+                const statusClass = response.ok ? 'success' : 'error';
+                const statusText = response.ok ? `✓ ${response.status} OK` : `✗ ${response.status} Error`;
+                
+                responseDiv.innerHTML = `
+                    <span class="status ${statusClass}">${statusText}</span>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                responseDiv.innerHTML = `
+                    <span class="status error">✗ Network Error</span>
+                    <pre>${error.message}</pre>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
