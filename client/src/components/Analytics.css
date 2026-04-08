@@ -1,0 +1,214 @@
+.analytics {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.analytics-header h2 {
+  color: #2e7d32;
+  margin: 0;
+}
+
+.year-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.year-selector label {
+  font-weight: 600;
+  color: #666;
+}
+
+.year-selector select {
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.farmer-performance,
+.monthly-trends,
+.yield-distribution {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 4px solid #4caf50;
+}
+
+.farmer-performance h3,
+.monthly-trends h3,
+.yield-distribution h3 {
+  color: #2e7d32;
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+}
+
+.farmer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.farmer-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.farmer-rank {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.farmer-details h4 {
+  margin: 0 0 8px 0;
+  color: #2e7d32;
+  font-size: 1.1rem;
+}
+
+.farmer-details p {
+  margin: 3px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.trends-chart {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  height: 220px;
+  padding: 20px 0;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.trend-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.bar {
+  background: linear-gradient(to top, #4caf50, #81c784);
+  width: 20px;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 5px;
+}
+
+.bar:hover {
+  background: linear-gradient(to top, #45a049, #66bb6a);
+  transform: scaleY(1.1);
+}
+
+.month-label {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.yield-distribution {
+  grid-column: span 2;
+}
+
+.distribution-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.distribution-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.farmer-name {
+  min-width: 120px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.weight {
+  min-width: 60px;
+  text-align: right;
+  font-weight: 600;
+  color: #2e7d32;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .yield-distribution {
+    grid-column: span 1;
+  }
+  
+  .analytics-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .trends-chart {
+    height: 180px;
+  }
+  
+  .distribution-list {
+    grid-template-columns: 1fr;
+  }
+}
